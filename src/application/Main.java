@@ -1,5 +1,7 @@
 package application;
 
+import java.util.Random;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -10,6 +12,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.shape.*;
+import javafx.scene.layout.GridPane;
+import java.util.Random;
+
 
 public class Main extends Application {
 	@Override
@@ -18,6 +23,11 @@ public class Main extends Application {
 
 			// Creates standard QR code squares at 3 corners of the stage
 			// 1 at top left, 1 at top right, 1 at bottom left
+			
+			Rectangle topLeftBorder = new Rectangle(10, 10, 150, 150);
+			topLeftBorder.setStroke(Color.WHITE);
+			topLeftBorder.setStrokeWidth(20);
+			topLeftBorder.setFill(Color.WHITE);
 			
 			Rectangle topLeftSq = new Rectangle(10, 10, 130, 130);
 			topLeftSq.setStroke(Color.BLACK);
@@ -29,6 +39,11 @@ public class Main extends Application {
 			topLeftCenter.setStrokeWidth(10);
 			topLeftCenter.setFill(Color.BLACK);
 
+			Rectangle topRightBorder = new Rectangle(350, 10, 150, 150);
+			topRightBorder.setStroke(Color.WHITE);
+			topRightBorder.setStrokeWidth(20);
+			topRightBorder.setFill(Color.WHITE);
+			
 			Rectangle topRightSq = new Rectangle(372, 10, 130, 130);
 			topRightSq.setStroke(Color.BLACK);
 			topRightSq.setStrokeWidth(20);
@@ -39,6 +54,11 @@ public class Main extends Application {
 			topRightCenter.setStrokeWidth(10);
 			topRightCenter.setFill(Color.BLACK);
 
+			Rectangle bottomLeftBorder = new Rectangle(10, 350, 150, 150);
+			bottomLeftBorder.setStroke(Color.WHITE);
+			bottomLeftBorder.setStrokeWidth(20);
+			bottomLeftBorder.setFill(Color.WHITE);
+			
 			Rectangle bottomLeftSq = new Rectangle(10, 372, 130, 130);
 			bottomLeftSq.setStroke(Color.BLACK);
 			bottomLeftSq.setStrokeWidth(20);
@@ -49,40 +69,36 @@ public class Main extends Application {
 			bottomLeftCenter.setStrokeWidth(10);
 			bottomLeftCenter.setFill(Color.BLACK);
 
-			Group root = new Group(topLeftSq, topLeftCenter, topRightSq, topRightCenter, bottomLeftSq,
+			// Below creates randomly generated squares along GridPanes
+			// that exist only between the standard squares and to the
+			// right and below the standard squares
+			
+			GridPane grid = new GridPane();
+			
+			int rowNum = 26;
+			int colNum = 26;
+
+			Random randomno = new Random();
+			Color[] colors = {Color.BLACK, Color.WHITE};
+			
+			for (int row=0; row<rowNum; row++) {
+				for(int col=0; col<colNum; col++) {
+					int n = randomno.nextInt(2);
+					Rectangle rec = new Rectangle();
+					rec.setWidth(20);
+					rec.setHeight(20);
+					rec.setFill(colors[n]);
+					GridPane.setRowIndex(rec, row);
+					GridPane.setColumnIndex(rec, col);
+					grid.getChildren().addAll(rec);
+				}
+			}
+			
+			Group root = new Group(grid, topLeftBorder, topRightBorder, bottomLeftBorder, 
+					topLeftSq, topLeftCenter, topRightSq, topRightCenter, bottomLeftSq,
 					bottomLeftCenter);
 
-			// Below creates randomly generated squares that exist only between the standard squares
-			
-			// Creates squares between the top standard squares only
-			for (int i = 0; i <= 30; i++) {
-				float x = (float) (170 + (Math.random() * 152));
-				float y = (float) (Math.random() * 150);
-
-				Rectangle topCenter = new Rectangle(x, y, 20, 20);
-				root.getChildren().add(topCenter);
-			}
-			
-			// Creates squares between the left standard squares only
-			for (int i = 0; i<= 30; i++) {
-				float x = (float) (Math.random() * 150);
-				float y = (float) (170 + (Math.random() * 152));
-				
-				Rectangle leftCenter = new Rectangle(x, y, 20, 20);
-				root.getChildren().add(leftCenter);
-			}
-
-			// Creates squares in the empty space below the top standard squares and
-			// to the right of the left standard squares
-			for (int i = 0; i <= 100; i++) {
-				float x = (float) (170 + (Math.random() * 320));
-				float y = (float) (170 + (Math.random() * 320));
-				
-				Rectangle bottomRight = new Rectangle(x, y, 20, 20);
-				root.getChildren().add(bottomRight);
-			}
-			
-			Scene scene = new Scene(root, 512, 512, Color.WHITE);
+			Scene scene = new Scene(root, 512, 512);
 			primaryStage.setTitle("Assignment 5: QR Faux-Code");
 			primaryStage.setScene(scene);
 			primaryStage.show();
