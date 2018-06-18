@@ -24,7 +24,7 @@ public class Main extends Application {
 			// Creates standard QR code squares at 3 corners of the stage
 			// 1 at top left, 1 at top right, 1 at bottom left
 			
-			Rectangle topLeftBorder = new Rectangle(10, 10, 150, 150);
+			Rectangle topLeftBorder = new Rectangle(10, 10, 140, 140);
 			topLeftBorder.setStroke(Color.WHITE);
 			topLeftBorder.setStrokeWidth(20);
 			topLeftBorder.setFill(Color.WHITE);
@@ -39,7 +39,7 @@ public class Main extends Application {
 			topLeftCenter.setStrokeWidth(10);
 			topLeftCenter.setFill(Color.BLACK);
 
-			Rectangle topRightBorder = new Rectangle(350, 10, 150, 150);
+			Rectangle topRightBorder = new Rectangle(350, 10, 150, 140);
 			topRightBorder.setStroke(Color.WHITE);
 			topRightBorder.setStrokeWidth(20);
 			topRightBorder.setFill(Color.WHITE);
@@ -54,7 +54,7 @@ public class Main extends Application {
 			topRightCenter.setStrokeWidth(10);
 			topRightCenter.setFill(Color.BLACK);
 
-			Rectangle bottomLeftBorder = new Rectangle(10, 350, 150, 150);
+			Rectangle bottomLeftBorder = new Rectangle(10, 350, 140, 150);
 			bottomLeftBorder.setStroke(Color.WHITE);
 			bottomLeftBorder.setStrokeWidth(20);
 			bottomLeftBorder.setFill(Color.WHITE);
